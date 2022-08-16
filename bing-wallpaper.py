@@ -17,7 +17,8 @@ def main() -> None:
 
     # Load configuration from environment variable
     country = os.environ.get('BING_WALLPAPER_COUNTRY', '')
-    wallpapers_dir = os.environ.get('BING_WALLPAPER_PATH', os.path.expanduser('~/Pictures/wallpaper/bing'))
+    wallpapers_dir = os.environ.get(
+        'BING_WALLPAPER_PATH', os.path.expanduser('~/Pictures/wallpaper/bing'))
 
     # check store directory
     os.makedirs(wallpapers_dir, exist_ok=True)
@@ -37,14 +38,17 @@ def main() -> None:
             f.write(data)
 
     # update xfce4-desktop wallpaper configuration
-    today_wallpaper = os.path.join(wallpapers_dir, f'{date.today().isoformat()}.jpg')
+    today_wallpaper = os.path.join(
+        wallpapers_dir, f'{date.today().isoformat()}.jpg')
     if not os.path.exists(today_wallpaper):
         return
-    proc = subprocess.run(['xrandr | grep " connected" | grep -v "primary"'], capture_output=True, shell=True, text=True)
+    proc = subprocess.run(['xrandr | grep " connected" | grep -v "primary"'],
+                          capture_output=True, shell=True, text=True)
     monitors = [line.split()[0] for line in proc.stdout.split('\n') if line]
     for monitor in monitors:
         prop_name = f'/backdrop/screen0/monitor{monitor}/workspace0/last-image'
-        subprocess.run(['xfconf-query', '-c', 'xfce4-desktop', '-p', prop_name, '-s', today_wallpaper])
+        subprocess.run(['xfconf-query', '-c', 'xfce4-desktop',
+                       '-p', prop_name, '-s', today_wallpaper])
 
 
 if __name__ == '__main__':
