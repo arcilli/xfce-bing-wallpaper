@@ -40,7 +40,7 @@ def main() -> None:
     today_wallpaper = os.path.join(wallpapers_dir, f'{date.today().isoformat()}.jpg')
     if not os.path.exists(today_wallpaper):
         return
-    proc = subprocess.run(['xrandr | grep " connected"'], capture_output=True, shell=True, text=True)
+    proc = subprocess.run(['xrandr | grep " connected" | grep -v "primary"'], capture_output=True, shell=True, text=True)
     monitors = [line.split()[0] for line in proc.stdout.split('\n') if line]
     for monitor in monitors:
         prop_name = f'/backdrop/screen0/monitor{monitor}/workspace0/last-image'
