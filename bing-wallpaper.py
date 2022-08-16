@@ -17,7 +17,7 @@ def main() -> None:
 
     # Load configuration from environment variable
     country = os.environ.get('BING_WALLPAPER_COUNTRY', '')
-    wallpapers_dir = os.environ.get('BING_WALLPAPER_PATH', os.path.expanduser('~/.wallpapers'))
+    wallpapers_dir = os.environ.get('BING_WALLPAPER_PATH', os.path.expanduser('~/Pictures/wallpaper/bing'))
 
     # check store directory
     os.makedirs(wallpapers_dir, exist_ok=True)
